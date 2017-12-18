@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
         response = response.json();
         this.config = response;
         this.addScriptToIndexFile();
+        this.checkAuthorization();
         setTimeout(() => {
           this.loadTokenAssistant();
         }, 1000);
@@ -68,4 +69,13 @@ export class AppComponent implements OnInit {
       clientId: environment.clientId
     });
   }
+
+  checkAuthorization() {
+    this.http.get(this.config.authorization_endpoint + `?response_type=id_token&client_id=${environment.clientId}` +
+      `&redirect_uri=${this.window.origin}&prompt=none`)
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
+
 }
