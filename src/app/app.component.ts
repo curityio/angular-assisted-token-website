@@ -11,7 +11,9 @@ export class AppComponent implements OnInit {
   window: any = window;
   tokenAssistant: any;
   userToken: string;
-  private config: any;
+  config: any;
+  count = 0;
+
 
   constructor(private ref: ChangeDetectorRef,
               private http: Http) {
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit {
   }
 
   getToken() {
+    this.tryLoadTokenAssistant();
     this.tokenAssistant.loginIfRequired().then(() => {
       console.log("Tokens retrieved");
       this.userToken = this.tokenAssistant.getAuthHeader();
@@ -44,10 +47,24 @@ export class AppComponent implements OnInit {
         this.config = response;
         this.addScriptToIndexFile();
         this.checkAuthorization();
-        setTimeout(() => {
-          this.loadTokenAssistant();
-        }, 1000);
+        this.tryLoadTokenAssistant();
       });
+  }
+
+  tryLoadTokenAssistant() {
+    if (this.window.curity) {
+      if (!this.tokenAssistant) {
+        this.loadTokenAssistant();
+      }
+    } else {
+      setTimeout(() => {
+        this.count++;
+        if (this.count > 100) {
+          return false;
+        }
+        this.tryLoadTokenAssistant();
+      }, 20);
+    }
   }
 
   addScriptToIndexFile() {
