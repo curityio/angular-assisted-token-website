@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   issuer: "https://localhost:8443/~",
-  clientId: "client-assisted-example"
+  clientId: "client-assisted-example",
+  serverUrl: "http://127.0.0.1:8100"
 };
