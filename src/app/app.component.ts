@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +13,9 @@ export class AppComponent implements OnInit {
   };
   isLoggedIn = false;
   tokenAssistant: any;
+  userToken: string;
 
-  constructor() {
+  constructor(private ref: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -31,12 +32,13 @@ export class AppComponent implements OnInit {
   }
 
   getToken() {
-    console.log("get token");
-    this.tokenAssistant.loginIfRequired().then(function () {
+    this.tokenAssistant.loginIfRequired().then(() => {
       console.log("Tokens retrieved");
-      console.log("Token " + this.tokenAssistant.getAuthHeader());
+      this.userToken = this.tokenAssistant.getAuthHeader();
+      console.log("Token " + this.userToken);
+      this.ref.detectChanges();
 
-    }).fail(function (err) {
+    }).fail((err) => {
       console.log("Failed to retrieve tokens", err);
     });
   }
