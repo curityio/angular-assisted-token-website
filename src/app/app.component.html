@@ -1,0 +1,12 @@
+<div *ngIf="isAuthenticated(); else notLoggedIn">
+  <h2>Assisted Token</h2>
+
+  <button (click)="getToken()">Get Token</button>
+</div>
+<ng-template #notLoggedIn>
+  <div>
+    <button (click)="getToken()">Login</button>
+  </div>
+</ng-template>
+
+
