@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   issuer: "https://localhost:8443/~",
   clientId: "client-assisted-example",
-  apiUrl: "http://127.0.0.1:8100"
+  apiUrl: "http://127.0.0.1:8100",
+  authServerOrigin: "http://127.0.0.1:8100"
 };

@@ -33,9 +33,13 @@ export class AppComponent implements OnInit {
             localStorage.setItem("token", this.userToken);
             this.http.get(environment.apiUrl + "/api")
                 .subscribe((response: any) => {
-                    this.apiResponse = response.data;
-                    this.ref.detectChanges();
-                });
+                        this.apiResponse = response.data;
+                        this.ref.detectChanges();
+                    },
+                    errorResponse => {
+                        this.apiResponse = errorResponse.error;
+                        this.ref.detectChanges();
+                    });
         }).fail((err) => {
             console.log("Failed to retrieve tokens", err);
         });
