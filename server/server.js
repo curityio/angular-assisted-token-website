@@ -42,9 +42,9 @@ var handleApiRequest = function (request, response) {
 
     if (authorizeHeader !== undefined) {
         var token = authorizeHeader.substring('Bearer '.length);
-        response.end("API accessed with token " + token, 'utf-8');
+        response.end(JSON.stringify({"data": "API accessed with token " + token}), 'utf-8');
     } else {
-        response.statusCode = 401;
+        response.writeHead(401, responseHeaders);
         response.end("No token on request");
     }
 
