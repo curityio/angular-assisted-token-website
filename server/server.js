@@ -14,7 +14,6 @@ var handleApiRequest = function (request, response) {
 
     var origin = request.headers["origin"];
 
-    // Making the naive assumption that any OPTIONS request is the user-agent making a cross-site preflighted request.
     if (request.method === 'OPTIONS') {
         console.log("Accepting probable preflight request");
 

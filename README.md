@@ -19,8 +19,6 @@ The 2nd thing is to copy the `AuthInterceptor.ts` and `assistant.service.ts` fil
     ],
     imports: [
         BrowserModule,
-        FormsModule,
-        HttpModule,
         HttpClientModule
     ],
     providers: [
