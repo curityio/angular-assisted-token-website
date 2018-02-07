@@ -4,8 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build"
+    "serve": "ng serve",
+    "build": "ng build",
+    "start": "concurrently --kill-others \"ng serve\" \"node server/server.js\""
   },
   "private": true,
   "dependencies": {
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@angular/cli": "1.0.0",
     "@angular/compiler-cli": "4.3.0",
+    "concurrently": "3.5.1",
     "ts-node": "2.0.0",
     "typescript": "2.2.0"
   }

@@ -3,9 +3,24 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
 ## Development server
-Run `node server/server.js` for api server if required.
+In this example an api call is made to a node server using the access token received from curity server after authentication.
+The sample node server exposes a rest api which mocks an authorized resource. In response of mock api call, the server returns the access token used to access the resource.
+You only need to run this server in order to test this example.
+
+Run node server as mentioned below.
+```nodemon
+node server/server.js
+```
+
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+
+In order to run both `node server` and `angular app` together, use the following command.
+
+```nodemon
+npm start
+``` 
 
 ## Integrate with Angular App  
 To integrate this example into any of Angular2/4 app, you need to copy `App Component` (`app.component.html`, `app.component.ts`) into your project and add this component into your App's module.    
