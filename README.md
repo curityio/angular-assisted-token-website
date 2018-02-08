@@ -22,6 +22,31 @@ In order to run both `node server` and `angular app` together, use the following
 npm start
 ``` 
 
+## Curity Config
+In order to run this example you need to make some configurations in Curity server.    
+The easiest way is to [download and install the sample configuration](https://developer.curity.io/release/2.3.1/configuration-samples) from curity docs.   
+This sample configuration has already configured one `Authentication Profile` and one `OAuth Profile`. The `OAuth Profile` also has an app configured (`client-assisted-example`).   
+If you are not using the sample configuration, then you need to make sure that atleast these configuration requirements are met before you make the following changes.    
+
+1. Login into the Admin UI and update license under `System -> General`.
+    ![image](./docs/images/license.png)
+     
+2. Go to OAuth profile and make sure that `Code Flow`, `Implicit Flow` and `Assisted Token` `Client Capabilities` are enabled under `Token Service -> General`.
+    ![image](./docs/images/client-capabilities.png)
+    
+3. Go to the `Token Service -> Apps` and edit `client-assisted-example`.
+    ![image](./docs/images/oauth-apps.png)   
+
+4. On `Token Service -> Apps -> Edit App(client-assisted-example)` page, make sure that  `Implicit Flow` and `Assisted Token` are enabled under `Client Capabilities` section.
+    ![image](./docs/images/oauth-app1.png)  
+    
+
+5. Update the `Redirect URIs` and `Allowed Origins` for `client-assisted-example` OAuth App.
+    ![image](./docs/images/oauth-app2.png)   
+       
+6. Commit the changes and you are all setup.    
+    
+
 ## Integrate with Angular App  
 To integrate this example into any of Angular2/4 app, you need to copy `App Component` (`app.component.html`, `app.component.ts`) into your project and add this component into your App's module.    
 
