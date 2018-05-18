@@ -69,15 +69,19 @@ export class AssistantService {
 
     checkAuthorization() {
         if (this.getParameterByName("user")) {
-            this.isLoggedIn = this.getParameterByName("user") === "true";
             return true;
         } else if (this.getParameterByName("error") === "login_required") {
             this.window.location.href = this.window.origin + "?user=false";
-        } else if (this.getParameterByName("error")) {
+        } else if (this.getParameterByName("id_token")) {
             this.window.location.href = this.window.origin + "?user=true";
         } else {
+            let nonceArray = window.crypto.getRandomValues(new Uint8Array(8));
+            let nonce = "";
+            for (let item in nonceArray) {
+                nonce += nonceArray[item].toString();
+            }
             const url = this.config.authorization_endpoint + `?response_type=id_token&client_id=${environment.clientId}` +
-                `&redirect_uri=${this.window.origin}&prompt=none`;
+                `&redirect_uri=${this.window.origin}&prompt=none&nonce=${nonce}`;
             this.window.location.href = url;
         }
     }
@@ -85,7 +89,7 @@ export class AssistantService {
     getParameterByName(name) {
         const url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
-        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        const regex = new RegExp("[?#&]" + name + "(=([^&#]*)|&|#|$)"),
             results = regex.exec(url);
         if (!results) {
             return null;

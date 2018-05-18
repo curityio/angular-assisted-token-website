@@ -8,7 +8,6 @@ import {AssistantService} from "../services/assistant.service";
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    tokenAssistant: any;
     userToken: string;
     isLoggedIn = false;
     apiResponse: any;
@@ -20,6 +19,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isLoggedIn = this.assistantService.getParameterByName("user") === "true";
     }
 
     callApi() {

@@ -1,11 +1,12 @@
 {
-  "name": "assisted-token",
+  "name": "angular-assisted-token",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build"
+    "serve": "ng serve",
+    "build": "ng build",
+    "start": "concurrently --kill-others \"ng serve\" \"node server/server.js\""
   },
   "private": true,
   "dependencies": {
@@ -16,12 +17,14 @@
     "@angular/platform-browser-dynamic": "4.3.0",
     "@angular/router": "4.3.0",
     "core-js": "2.4.1",
+    "ng-cli": "0.7.0",
     "rxjs": "5.1.0",
     "zone.js": "0.8.4"
   },
   "devDependencies": {
     "@angular/cli": "1.0.0",
     "@angular/compiler-cli": "4.3.0",
+    "concurrently": "3.5.1",
     "ts-node": "2.0.0",
     "typescript": "2.2.0"
   }
