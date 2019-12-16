@@ -32,7 +32,7 @@ If you are not using the sample configuration, then you need to make sure the fo
 3. Go to the `Clients` page of the profile and create a client called `client-assisted-example`.
    ![image](./docs/images/clients.png)
 
-4. This client (accessible from `Token Service -> Clients -> Edit Client -> client-assisted-example`) should have the `Implicit Flow` and `Assisted Token` options toggled on under the `Client Capabilities` section.
+4. This client (accessible from `Token Service -> Clients -> client-assisted-example -> Edit Client`) should have the `Implicit Flow` and `Assisted Token` options toggled on under the `Client Capabilities` section.
    ![image](./docs/images/client-capabilities.png)
 
 5. Update the `Redirect URIs` and `Allowed Origins` settings for the `client-assisted-example` OAuth App. The redirect URI should be `http://localhost:4200`. This is the URL where the Angular CLI will be hosting the SPA. The allowed origin should be the same or, for testing purposes, you can also use `*`.
@@ -99,7 +99,7 @@ export const environment = {
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist` directory. Use the `-prod` flag to create a production build.
 
-## More Help with Angular CLI
+## More Help with Angular CLqI
 
 To get more help on the Angular CLI, use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
