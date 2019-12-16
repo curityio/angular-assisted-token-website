@@ -22,7 +22,7 @@ export class AssistantService {
     }
 
     loadConfiguration() {
-    this.http.get(environment.issuer + environment.OPENID_CONFIGURATION_URL)
+    this.http.get(environment.issuer + environment.openid_configuration_url)
             .subscribe(response => {
                 this.config = response;
                 this.addScriptToIndexFile();
