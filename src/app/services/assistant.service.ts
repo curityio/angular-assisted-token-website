@@ -71,9 +71,11 @@ export class AssistantService {
         if (this.getParameterByName("user")) {
             return true;
         } else if (this.getParameterByName("error") === "login_required") {
-            this.window.location.href = this.window.origin + "?user=false";
+            const userLoginRequired = this.window.origin + '?user=false';
+            window.history.pushState({path: userLoginRequired}, '', userLoginRequired);
         } else if (this.getParameterByName("id_token")) {
-            this.window.location.href = this.window.origin + "?user=true";
+            const userIsLoggedIn = this.window.origin + '?user=true';
+            window.history.pushState({path: userIsLoggedIn}, '', userIsLoggedIn);
         } else {
             let nonceArray = window.crypto.getRandomValues(new Uint8Array(8));
             let nonce = "";
