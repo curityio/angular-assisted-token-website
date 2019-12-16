@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
     }
 
 	callApi() {
-		this.assistantService.tryLoadTokenAssistant();
 		const getTokenAssistant = this.assistantService.getAssistant();
 		if (getTokenAssistant && Object.keys(getTokenAssistant).length > 0) {
 			const isUserAuthenticated =
@@ -54,21 +53,23 @@ export class AppComponent implements OnInit {
 		}
 	}
 
-    getToken() {
-        this.assistantService.tryLoadTokenAssistant();
-        this.assistantService.getAssistant().loginIfRequired().then(() => {
-            this.isLoggedIn = true;
-            console.log("Tokens retrieved");
-            this.userToken = this.assistantService.getAssistant().getAuthHeader();
-            if (this.assistantService.getParameterByName("user") === "false") {
+	getToken() {
+		const getTokenAssistant = this.assistantService.getAssistant();
+		if (getTokenAssistant && Object.keys(getTokenAssistant).length > 0) {
+			this.assistantService.getAssistant().loginIfRequired().then(() => {
+				this.isLoggedIn = true;
+				console.log('Tokens retrieved');
+				this.userToken = this.assistantService.getAssistant().getAuthHeader();
+				if (this.assistantService.getParameterByName('user') === 'false') {
                 window.location.search = "?user=true";
             }
-            console.log("Token " + this.userToken);
-            this.ref.detectChanges();
+				console.log('Token ' + this.userToken);
+				this.ref.detectChanges();
 
-        }).fail((err) => {
-            console.log("Failed to retrieve tokens", err);
-        });
-    }
+			}).fail((err) => {
+				console.log('Failed to retrieve tokens', err);
+			});
+		}
+	}
 
 }
