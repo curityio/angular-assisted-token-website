@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {environment} from "../../environments/environment";
+import { authorization_parameters_by, constants, environment } from '../../environments/environment';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable()
@@ -68,22 +68,29 @@ export class AssistantService {
     }
 
     checkAuthorization() {
-        if (this.getParameterByName("user")) {
+        const parameterByUser = this.getParameterByName(authorization_parameters_by.user);
+        const parameterByError = this.getParameterByName(authorization_parameters_by.error);
+        const parameterByIdToken = this.getParameterByName(authorization_parameters_by.id_token);
+
+        if (parameterByUser) {
             return true;
-        } else if (this.getParameterByName("error") === "login_required") {
+        }
+        else if (parameterByError === constants.login_required || parameterByError === constants.invalid_request) {
             const userLoginRequired = this.window.origin + '?user=false';
             window.history.pushState({path: userLoginRequired}, '', userLoginRequired);
-        } else if (this.getParameterByName("id_token")) {
+        }
+        else if (parameterByIdToken) {
             const userIsLoggedIn = this.window.origin + '?user=true';
             window.history.pushState({path: userIsLoggedIn}, '', userIsLoggedIn);
-        } else {
+        }
+        else {
             let nonceArray = window.crypto.getRandomValues(new Uint8Array(8));
-            let nonce = "";
+            let nonce = '';
             for (let item in nonceArray) {
                 nonce += nonceArray[item].toString();
             }
             const url = this.config.authorization_endpoint + `?response_type=id_token&client_id=${environment.clientId}` +
-                `&redirect_uri=${this.window.origin}&prompt=none&nonce=${nonce}`;
+              `&redirect_uri=${this.window.origin}&prompt=none&nonce=${nonce}`;
             this.window.location.href = url;
         }
     }

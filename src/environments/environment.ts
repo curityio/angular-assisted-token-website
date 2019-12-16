@@ -11,3 +11,14 @@ export const environment = {
   authServerOrigin: "http://127.0.0.1:8100",
   openid_configuration_url: "dev/oauth/anonymous/.well-known/openid-configuration"
 };
+
+export const authorization_parameters_by = {
+  user: 'user',
+  error: 'error',
+  id_token: 'id_token',
+};
+
+export const constants = {
+  login_required: 'login_required',
+  invalid_request: 'invalid_request'
+};
