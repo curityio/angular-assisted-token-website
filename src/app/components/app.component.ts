@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {AssistantService} from "../services/assistant.service";
+import { ParameterName } from '../types/constants';
 
 @Component({
     selector: 'app-root',
@@ -19,14 +20,13 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isLoggedIn = this.assistantService.getParameterByName("user") === "true";
+        this.isLoggedIn = this.assistantService.getParameterByName(ParameterName.USER) === "true";
     }
 
 	callApi() {
-		const getTokenAssistant = this.assistantService.getAssistant();
-		if (getTokenAssistant && Object.keys(getTokenAssistant).length > 0) {
-			const isUserAuthenticated =
-				getTokenAssistant.isAuthenticated() && !getTokenAssistant.isExpired();
+		const tokenAssistant = this.assistantService.getAssistant();
+		if (tokenAssistant && Object.keys(tokenAssistant).length > 0) {
+			const isUserAuthenticated = tokenAssistant.isAuthenticated() && !tokenAssistant.isExpired();
 			if (isUserAuthenticated) {
 				this.isLoggedIn = true;
 				this.userToken = this.assistantService.getAssistant().getAuthHeader();
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
 					}
 				);
 			} else {
-				getTokenAssistant
+				tokenAssistant
 					.loginIfRequired()
 					.then(token => {
 						this.callApi();
@@ -59,9 +59,9 @@ export class AppComponent implements OnInit {
 			this.assistantService.getAssistant().loginIfRequired().then(() => {
 				this.isLoggedIn = true;
 				this.userToken = this.assistantService.getAssistant().getAuthHeader();
-				if (this.assistantService.getParameterByName('user') === 'false') {
-					const userIsLoggedIn = window.location.origin + '?user=true';
-					window.history.pushState({path: userIsLoggedIn}, '', userIsLoggedIn);
+				if (this.assistantService.getParameterByName(ParameterName.USER) === 'false') {
+					const href = window.location.origin + '?user=true';
+					window.history.pushState({path: href}, '', href);
 				}
 				this.ref.detectChanges();
 

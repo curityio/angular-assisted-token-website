@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
-import { authorization_parameters_by, constants, environment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 import {HttpClient} from "@angular/common/http";
+import { INVALID_REQUEST, LOGIN_REQUIRED, ParameterName } from '../types/constants';
 
 @Injectable()
 export class AssistantService {
@@ -68,20 +69,20 @@ export class AssistantService {
     }
 
     checkAuthorization() {
-        const parameterByUser = this.getParameterByName(authorization_parameters_by.user);
-        const parameterByError = this.getParameterByName(authorization_parameters_by.error);
-        const parameterByIdToken = this.getParameterByName(authorization_parameters_by.id_token);
+        const parameterByUser = this.getParameterByName(ParameterName.USER);
+        const parameterByError = this.getParameterByName(ParameterName.ERROR);
+        const parameterByIdToken = this.getParameterByName(ParameterName.ID_TOKEN);
 
         if (parameterByUser) {
             return true;
         }
-        else if (parameterByError === constants.login_required || parameterByError === constants.invalid_request) {
-            const userLoginRequired = this.window.origin + '?user=false';
-            window.history.pushState({path: userLoginRequired}, '', userLoginRequired);
+        else if (parameterByError === LOGIN_REQUIRED || parameterByError === INVALID_REQUEST) {
+            const href = this.window.origin + '?user=false';
+            window.history.pushState({path: href}, '', href);
         }
         else if (parameterByIdToken) {
-            const userIsLoggedIn = this.window.origin + '?user=true';
-            window.history.pushState({path: userIsLoggedIn}, '', userIsLoggedIn);
+            const href = this.window.origin + '?user=true';
+            window.history.pushState({path: href}, '', href);
         }
         else {
             let nonceArray = window.crypto.getRandomValues(new Uint8Array(8));
