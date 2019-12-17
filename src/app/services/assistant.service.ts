@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {HttpClient} from "@angular/common/http";
 import { INVALID_REQUEST, LOGIN_REQUIRED, ParameterName } from '../types/constants';
 
 @Injectable()
@@ -69,30 +69,31 @@ export class AssistantService {
     }
 
     checkAuthorization() {
-        const parameterByUser = this.getParameterByName(ParameterName.USER);
-        const parameterByError = this.getParameterByName(ParameterName.ERROR);
-        const parameterByIdToken = this.getParameterByName(ParameterName.ID_TOKEN);
+        const userParam = this.getParameterByName(ParameterName.USER);
+        const errorParam = this.getParameterByName(ParameterName.ERROR);
+        const idTokenParam = this.getParameterByName(ParameterName.ID_TOKEN);
 
-        if (parameterByUser) {
+        if (userParam) {
             return true;
         }
-        else if (parameterByError === LOGIN_REQUIRED || parameterByError === INVALID_REQUEST) {
+        else if (errorParam === LOGIN_REQUIRED || errorParam === INVALID_REQUEST) {
             const href = this.window.origin + '?user=false';
             window.history.pushState({path: href}, '', href);
         }
-        else if (parameterByIdToken) {
+        else if (idTokenParam) {
             const href = this.window.origin + '?user=true';
             window.history.pushState({path: href}, '', href);
         }
         else {
-            let nonceArray = window.crypto.getRandomValues(new Uint8Array(8));
+            let nonceArray: any = window.crypto.getRandomValues(new Uint8Array(8));
             let nonce = '';
             for (let item in nonceArray) {
-                nonce += nonceArray[item].toString();
+                if (nonceArray.hasOwnProperty(item)) {
+                    nonce += nonceArray[item].toString();
+                }
             }
-            const url = this.config.authorization_endpoint + `?response_type=id_token&client_id=${environment.clientId}` +
+            this.window.location.href = this.config.authorization_endpoint + `?response_type=id_token&client_id=${environment.clientId}` +
               `&redirect_uri=${this.window.origin}&prompt=none&nonce=${nonce}`;
-            this.window.location.href = url;
         }
     }
 
