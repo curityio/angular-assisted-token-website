@@ -1,10 +1,10 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {AppComponent} from './components/app.component';
-import {AuthInterceptor} from "./services/AuthInterceptor";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {AssistantService} from "./services/assistant.service";
+import { AppComponent } from './components/app.component';
+import { AssistantService } from './services/assistant.service';
+import { AuthInterceptor } from './services/AuthInterceptor';
 
 @NgModule({
     declarations: [
@@ -19,7 +19,7 @@ import {AssistantService} from "./services/assistant.service";
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
-            multi: true,
+            multi: true
         }
     ],
     bootstrap: [AppComponent]

@@ -23,13 +23,13 @@ export class AssistantService {
     }
 
     loadConfiguration() {
-    this.http.get(environment.issuer + environment.openid_configuration_url)
-            .subscribe(response => {
-                this.config = response;
-                this.addScriptToIndexFile();
-                this.checkAuthorization();
-                this.tryLoadTokenAssistant();
-            });
+        this.http.get(environment.issuer + environment.openid_configuration_url)
+          .subscribe(response => {
+              this.config = response;
+              this.addScriptToIndexFile();
+              this.checkAuthorization();
+              this.tryLoadTokenAssistant();
+          });
     }
 
     tryLoadTokenAssistant() {
@@ -37,7 +37,8 @@ export class AssistantService {
             if (!this.tokenAssistant) {
                 this.loadTokenAssistant();
             }
-        } else {
+        }
+        else {
             setTimeout(() => {
                 this.count++;
                 if (this.count > 100) {
@@ -50,18 +51,18 @@ export class AssistantService {
 
     addScriptToIndexFile() {
         const head = this.window.document.head;
-        const script = this.window.document.createElement("script");
+        const script = this.window.document.createElement('script');
         script.type = 'text/javascript';
-        script.src = this.config.assisted_token_endpoint + "/resources/js/assisted-token.min.js";
-        script.id = "assisted-token-js-script";
+        script.src = this.config.assisted_token_endpoint + '/resources/js/assisted-token.min.js';
+        script.id = 'assisted-token-js-script';
         head.appendChild(script);
     }
 
     loadTokenAssistant() {
         if (!this.window.curity) {
-            throw new Error("Assisted token javascript was not found." +
-                " Make sure the server is running and/or update URL " +
-                "of #assisted-token-js-script script");
+            throw new Error('Assisted token javascript was not found.' +
+              ' Make sure the server is running and/or update URL ' +
+              'of #assisted-token-js-script script');
         }
         this.tokenAssistant = this.window.curity.token.assistant({
             clientId: environment.clientId
@@ -99,15 +100,15 @@ export class AssistantService {
 
     getParameterByName(name) {
         const url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        const regex = new RegExp("[?#&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?#&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
         if (!results) {
             return null;
         }
         if (!results[2]) {
             return '';
         }
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 }

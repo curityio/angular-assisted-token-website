@@ -1,6 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { AssistantService } from '../services/assistant.service';
 import { ParameterName } from '../types/constants';
 
