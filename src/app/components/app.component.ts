@@ -58,13 +58,11 @@ export class AppComponent implements OnInit {
 		if (getTokenAssistant && Object.keys(getTokenAssistant).length > 0) {
 			this.assistantService.getAssistant().loginIfRequired().then(() => {
 				this.isLoggedIn = true;
-				console.log('Tokens retrieved');
 				this.userToken = this.assistantService.getAssistant().getAuthHeader();
 				if (this.assistantService.getParameterByName('user') === 'false') {
 					const userIsLoggedIn = window.location.origin + '?user=true';
 					window.history.pushState({path: userIsLoggedIn}, '', userIsLoggedIn);
 				}
-				console.log('Token ' + this.userToken);
 				this.ref.detectChanges();
 
 			}).fail((err) => {
