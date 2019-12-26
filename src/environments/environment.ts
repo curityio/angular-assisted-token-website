@@ -5,8 +5,9 @@
 
 export const environment = {
   production: false,
-  issuer: "https://localhost:8443/~",
+  issuer: "https://localhost:8443/",
   clientId: "client-assisted-example",
   apiUrl: "http://127.0.0.1:8100",
-  authServerOrigin: "http://127.0.0.1:8100"
+  authServerOrigin: "http://127.0.0.1:8100",
+  openid_configuration_url: "dev/oauth/anonymous/.well-known/openid-configuration"
 };

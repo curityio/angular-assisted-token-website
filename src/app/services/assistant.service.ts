@@ -1,6 +1,7 @@
-import {Injectable} from "@angular/core";
-import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { INVALID_REQUEST, LOGIN_REQUIRED, ParameterName } from '../types/constants';
 
 @Injectable()
 export class AssistantService {
@@ -22,13 +23,13 @@ export class AssistantService {
     }
 
     loadConfiguration() {
-        this.http.get(environment.issuer + "/.well-known/openid-configuration")
-            .subscribe(response => {
-                this.config = response;
-                this.addScriptToIndexFile();
-                this.checkAuthorization();
-                this.tryLoadTokenAssistant();
-            });
+        this.http.get(environment.issuer + environment.openid_configuration_url)
+          .subscribe(response => {
+              this.config = response;
+              this.addScriptToIndexFile();
+              this.checkAuthorization();
+              this.tryLoadTokenAssistant();
+          });
     }
 
     tryLoadTokenAssistant() {
@@ -36,7 +37,8 @@ export class AssistantService {
             if (!this.tokenAssistant) {
                 this.loadTokenAssistant();
             }
-        } else {
+        }
+        else {
             setTimeout(() => {
                 this.count++;
                 if (this.count > 100) {
@@ -49,18 +51,18 @@ export class AssistantService {
 
     addScriptToIndexFile() {
         const head = this.window.document.head;
-        const script = this.window.document.createElement("script");
+        const script = this.window.document.createElement('script');
         script.type = 'text/javascript';
-        script.src = this.config.assisted_token_endpoint + "/resources/js/assisted-token.min.js";
-        script.id = "assisted-token-js-script";
+        script.src = this.config.assisted_token_endpoint + '/resources/js/assisted-token.min.js';
+        script.id = 'assisted-token-js-script';
         head.appendChild(script);
     }
 
     loadTokenAssistant() {
         if (!this.window.curity) {
-            throw new Error("Assisted token javascript was not found." +
-                " Make sure the server is running and/or update URL " +
-                "of #assisted-token-js-script script");
+            throw new Error('Assisted token javascript was not found.' +
+              ' Make sure the server is running and/or update URL ' +
+              'of #assisted-token-js-script script');
         }
         this.tokenAssistant = this.window.curity.token.assistant({
             clientId: environment.clientId
@@ -68,35 +70,45 @@ export class AssistantService {
     }
 
     checkAuthorization() {
-        if (this.getParameterByName("user")) {
+        const userParam = this.getParameterByName(ParameterName.USER);
+        const errorParam = this.getParameterByName(ParameterName.ERROR);
+        const idTokenParam = this.getParameterByName(ParameterName.ID_TOKEN);
+
+        if (userParam) {
             return true;
-        } else if (this.getParameterByName("error") === "login_required") {
-            this.window.location.href = this.window.origin + "?user=false";
-        } else if (this.getParameterByName("id_token")) {
-            this.window.location.href = this.window.origin + "?user=true";
-        } else {
-            let nonceArray = window.crypto.getRandomValues(new Uint8Array(8));
-            let nonce = "";
+        }
+        else if (errorParam === LOGIN_REQUIRED || errorParam === INVALID_REQUEST) {
+            const href = this.window.origin + '?user=false';
+            window.history.pushState({path: href}, '', href);
+        }
+        else if (idTokenParam) {
+            const href = this.window.origin + '?user=true';
+            window.history.pushState({path: href}, '', href);
+        }
+        else {
+            let nonceArray: any = window.crypto.getRandomValues(new Uint8Array(8));
+            let nonce = '';
             for (let item in nonceArray) {
-                nonce += nonceArray[item].toString();
+                if (nonceArray.hasOwnProperty(item)) {
+                    nonce += nonceArray[item].toString();
+                }
             }
-            const url = this.config.authorization_endpoint + `?response_type=id_token&client_id=${environment.clientId}` +
-                `&redirect_uri=${this.window.origin}&prompt=none&nonce=${nonce}`;
-            this.window.location.href = url;
+            this.window.location.href = this.config.authorization_endpoint + `?response_type=id_token&client_id=${environment.clientId}` +
+              `&redirect_uri=${this.window.origin}&prompt=none&nonce=${nonce}`;
         }
     }
 
     getParameterByName(name) {
         const url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        const regex = new RegExp("[?#&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?#&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
         if (!results) {
             return null;
         }
         if (!results[2]) {
             return '';
         }
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 }
