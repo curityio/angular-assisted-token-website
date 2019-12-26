@@ -25,6 +25,7 @@ In order to run this example you need to setup some configurations in Curity ser
 If you are not using the sample configuration, then you need to make sure the following configuration changes are made before you use this example.
 
 1. Login into the Admin UI and make sure that you have uploaded a valid license under `System -> General`.
+
    ![image](./docs/images/license.png)
 2. Go to Token Service profile and make sure that at least `Implicit Flow` and `Assisted Token` are enabled on the `Client Settings` page of that profile.
 
