@@ -1,6 +1,6 @@
 # Angular Assisted Token Example
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
 ## Quick Start
 
@@ -106,7 +106,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## More Help with Angular CLI
 
-To get more help on the Angular CLI, use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## More Information
 
