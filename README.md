@@ -1,6 +1,6 @@
 # Angular Assisted Token Example
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
 
 ## Quick Start
 
@@ -96,7 +96,7 @@ export const environment = {
 	clientId: "client-assisted-example",
 	apiUrl: "http://127.0.0.1:8100",
 	authServerOrigin: "http://127.0.0.1:8100",
-	openid_configuration_url: "dev/oauth/anonymous/.well-known/openid-configuration"
+	openIdConfigurationUrl: "dev/oauth/anonymous/.well-known/openid-configuration"
 };
 ```
 
