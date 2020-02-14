@@ -8,7 +8,7 @@ export const environment = {
   clientId: 'client-assisted-example',
   apiUrl: 'http://127.0.0.1:8100',
   authServerOrigin: 'http://127.0.0.1:8100',
-  openIdConfigurationUrl: 'dev/oauth/anonymous/.well-known/openid-configuration'
+  openIdConfigurationUrl: 'oauth/v2/oauth-anonymous/.well-known/openid-configuration'
 };
 
 /*
