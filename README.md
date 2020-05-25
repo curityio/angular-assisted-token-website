@@ -1,7 +1,7 @@
 # Angular Assisted Token Example
 
-[![Quality](https://curity.io/assets/images/badges/angular-app-using-assisted-token-flow-quality.svg)](https://curity.io/resources/code-examples/status/)
-[![Availability](https://curity.io/assets/images/badges/angular-app-using-assisted-token-flow-availability.svg)](https://curity.io/resources/code-examples/status/)
+[![Quality](https://curity.io/assets/images/badges/angular-assisted-token-website-quality.svg)](https://curity.io/resources/code-examples/status/)
+[![Availability](https://curity.io/assets/images/badges/angular-assisted-token-website-availability.svg)](https://curity.io/resources/code-examples/status/)
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
