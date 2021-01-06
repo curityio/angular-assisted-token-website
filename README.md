@@ -27,11 +27,12 @@ In order to run this example you need to setup some configurations in Curity ser
 
 If you are not using the sample configuration, then you need to make sure the following configuration changes are made before you use this example.
 
-1. Login into the Admin UI and make sure that you have uploaded a valid license under `System -> General`.
+1. Login into the `Admin UI` and make sure that you have uploaded a valid license under `System -> General`.
 
 
    ![image](./docs/images/license.png)
-2. Go to Token Service profile and make sure that at least `Implicit Flow` and `Assisted Token` are enabled on the `Client Settings` page of that profile.
+   
+2. Go to `Token Service` profile and make sure that at least `Implicit Flow` and `Assisted Token` are enabled on the `Client Settings` page of that profile.
 
 
    ![image](./docs/images/profile-capabilities.png)
@@ -40,6 +41,7 @@ If you are not using the sample configuration, then you need to make sure the fo
 
 
    ![image](./docs/images/clients.png)
+
 4. This client (accessible from `Token Service -> Clients -> client-assisted-example -> Edit Client`) should have `Implicit Flow` and `Assisted Token` capabilities selected under the `Capabilities` section.
 
 
@@ -57,7 +59,7 @@ If you are not using the sample configuration, then you need to make sure the fo
 
    ![image](./docs/images/client-application-settings.png)
 
-7. Commit the changes, and you are all setup!
+7. `Validate` and `Commit` the changes and you are all setup.
 
 If you compare the final config with the sample config, then you will find the following salient differences.
 
