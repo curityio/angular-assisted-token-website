@@ -92,7 +92,7 @@ export class AssistantService {
           nonce += nonceArray[item].toString();
         }
       }
-      this.window.location.href = this.config.authorization_endpoint + `?response_type=id_token&client_id=${environment.clientId}` +
+      this.window.location.href = this.config.authorization_endpoint + `?response_type=id_token&scope=openid&client_id=${environment.clientId}` +
         `&redirect_uri=${this.window.origin}&prompt=none&nonce=${nonce}`;
     }
   }
