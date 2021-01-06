@@ -40,16 +40,16 @@ If you are not using the sample configuration, then you need to make sure the fo
 
 
    ![image](./docs/images/clients.png)
-
 4. This client (accessible from `Token Service -> Clients -> client-assisted-example -> Edit Client`) should have `Implicit Flow` and `Assisted Token` capabilities selected under the `Capabilities` section.
 
-![image](./docs/images/openid-scope.png)
+
+   ![image](./docs/images/client-capabilities.png)
+
 
 5. Navigate to `OAuth/OpenID Settings` section make sure to add 
 `opendid` scope.
-   
 
-   ![image](./docs/images/client-capabilities.png)
+![image](./docs/images/openid-scope.png)
 
 6. Update the `Redirect URIs` and `Allowed Origins` settings for the `client-assisted-example` Client. The redirect URI should have `http://localhost:4200`. This is the URL where the Angular CLI will be hosting the SPA. The allowed origin should be the same or, for testing purposes, you can also use `*`.
 
