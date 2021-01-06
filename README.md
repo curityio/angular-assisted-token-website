@@ -49,9 +49,11 @@ If you are not using the sample configuration, then you need to make sure the fo
 5. Navigate to `OAuth/OpenID Settings` section make sure to add 
 `opendid` scope.
 
-![image](./docs/images/openid-scope.png)
+![image](docs/images/openid-scope.png)
+
 
 6. Update the `Redirect URIs` and `Allowed Origins` settings for the `client-assisted-example` Client. The redirect URI should have `http://localhost:4200`. This is the URL where the Angular CLI will be hosting the SPA. The allowed origin should be the same or, for testing purposes, you can also use `*`.
+   
 
    ![image](./docs/images/client-application-settings.png)
 
