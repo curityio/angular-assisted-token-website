@@ -27,26 +27,37 @@ In order to run this example you need to setup some configurations in Curity ser
 
 If you are not using the sample configuration, then you need to make sure the following configuration changes are made before you use this example.
 
-1. Login into the Admin UI and make sure that you have uploaded a valid license under `System -> General`.
+1. Login into the `Admin UI` and make sure that you have uploaded a valid license under `System -> General`.
+
 
    ![image](./docs/images/license.png)
-2. Go to Token Service profile and make sure that at least `Implicit Flow` and `Assisted Token` are enabled on the `Client Settings` page of that profile.
+   
+2. Go to `Token Service` profile and make sure that at least `Implicit Flow` and `Assisted Token` are enabled on the `Client Settings` page of that profile.
+
 
    ![image](./docs/images/profile-capabilities.png)
 
 3. Go to the `Clients` page of the profile and create a client called `client-assisted-example`.
 
+
    ![image](./docs/images/clients.png)
 
 4. This client (accessible from `Token Service -> Clients -> client-assisted-example -> Edit Client`) should have `Implicit Flow` and `Assisted Token` capabilities selected under the `Capabilities` section.
 
+
    ![image](./docs/images/client-capabilities.png)
 
-5. Update the `Redirect URIs` and `Allowed Origins` settings for the `client-assisted-example` Client. The redirect URI should have `http://localhost:4200`. This is the URL where the Angular CLI will be hosting the SPA. The allowed origin should be the same or, for testing purposes, you can also use `*`.
+
+5. Navigate to `OAuth/OpenID Settings` section make sure to add `openid` scope.
+
+![image](docs/images/openid-scope.png)
+
+6. Update the `Redirect URIs` and `Allowed Origins` settings for the `client-assisted-example` Client. The redirect URI should have `http://localhost:4200`. This is the URL where the Angular CLI will be hosting the SPA. The allowed origin should be the same or, for testing purposes, you can also use `*`.
+   
 
    ![image](./docs/images/client-application-settings.png)
 
-6. Commit the changes, and you are all setup!
+7. `Commit` the changes and you are all setup.
 
 If you compare the final config with the sample config, then you will find the following salient differences.
 
