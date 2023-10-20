@@ -21,9 +21,9 @@ You can make changes to the Angular single-page application (SPA) to perform you
 npm start
 ```
 
-## Curity Configuration
+## The Curity Identity Server Configuration
 
-In order to run this example you need to setup some configurations in Curity server. The easiest way is to [download and install the sample configuration](https://developer.curity.io/release/4.5.0/configuration-samples) from Curity developer portal. This sample configuration already has an authentication profile and an OAuth profile that can be used with this example. The OAuth profile also has a client app configured that can be used -- `client-assisted-example`.
+In order to run this example you need to setup some configurations in the Curity Identity Server. The easiest way is to [download and install the sample configuration](https://developer.curity.io/release/8.5.3/configuration-samples) from the Curity developer portal. This sample configuration already has an authentication profile and an OAuth profile that can be used with this example. The OAuth profile also has a client app configured that can be used -- `client-assisted-example`.
 
 If you are not using the sample configuration, then you need to make sure the following configuration changes are made before you use this example.
 
@@ -40,22 +40,24 @@ If you are not using the sample configuration, then you need to make sure the fo
 3. Go to the `Clients` page of the profile and create a client called `client-assisted-example`.
 
 
-   ![image](./docs/images/clients.png)
+   ![image](./docs/images/clients.jpg)
 
 4. This client (accessible from `Token Service -> Clients -> client-assisted-example -> Edit Client`) should have `Implicit Flow` and `Assisted Token` capabilities selected under the `Capabilities` section.
 
 
-   ![image](./docs/images/client-capabilities.png)
+   ![image](./docs/images/client-capabilities.jpg)
 
 
 5. Navigate to `OAuth/OpenID Settings` section make sure to add `openid` scope.
 
-![image](docs/images/openid-scope.png)
+![image](docs/images/openid-scope.jpg)
 
 6. Update the `Redirect URIs` and `Allowed Origins` settings for the `client-assisted-example` Client. The redirect URI should have `http://localhost:4200`. This is the URL where the Angular CLI will be hosting the SPA. The allowed origin should be the same or, for testing purposes, you can also use `*`.
    
 
-   ![image](./docs/images/client-application-settings.png)
+   ![image](./docs/images/client-application-settings-1.jpg)
+
+   ![image](./docs/images/client-application-settings-2.jpg)
 
 7. `Commit` the changes and you are all setup.
 
