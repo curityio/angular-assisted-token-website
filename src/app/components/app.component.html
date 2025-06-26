@@ -1,27 +1,22 @@
-<div *ngIf="isLoggedIn; else notLoggedIn">
-  <h2>Assisted Token</h2>
-
-  <button (click)="getToken()">Get Token</button>
-
-  <br>
-  <br>
-  <label>Token : <b>{{userToken}}</b></label>
-
-
-  <br>
-  <br>
-  <br>
-
-
-  <button (click)="callApi()">Call Api</button>
-  <br>
-  <br>
-  <label *ngIf="apiResponse">Response : {{apiResponse}}</label>
-
-
-</div>
-<ng-template #notLoggedIn>
+@if (isLoggedIn) {
   <div>
-    <button (click)="getToken()">Login</button>
-  </div>
-</ng-template>
+    <h2>Assisted Token</h2>
+    <button (click)="getToken()">Get Token</button>
+    <br>
+      <br>
+        <label>Token : <b>{{userToken}}</b></label>
+        <br>
+          <br>
+            <br>
+              <button (click)="callApi()">Call Api</button>
+              <br>
+                <br>
+                  @if (apiResponse) {
+                    <label>Response : {{apiResponse}}</label>
+                  }
+                </div>
+              } @else {
+                <div>
+                  <button (click)="getToken()">Login</button>
+                </div>
+              }

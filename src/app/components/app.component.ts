@@ -1,12 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { AssistantService } from '../services/assistant.service';
-import { ParameterName } from '../types/constants';
+import {HttpClient} from '@angular/common/http';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {AssistantService} from '../services/assistant.service';
+import {ParameterName} from '../types/constants';
+
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   userToken: string;
@@ -29,25 +32,25 @@ export class AppComponent implements OnInit {
       if (isUserAuthenticated) {
         this.isLoggedIn = true;
         this.userToken = this.assistantService.getAssistant().getAuthHeader();
-        this.http.get(environment.apiUrl + '/api').subscribe(
-          (response: any) => {
+        const changeDetectionRef = this.ref;
+        this.http.get(environment.apiUrl + '/api').subscribe({
+          next(response: any) {
             this.apiResponse = response.data;
-            this.ref.detectChanges();
+            changeDetectionRef.markForCheck();
           },
-          errorResponse => {
+          error(errorResponse) {
             this.apiResponse = errorResponse.error;
-            this.ref.detectChanges();
+            changeDetectionRef.markForCheck();
           }
-        );
-      }
-      else {
+        });
+      } else {
         tokenAssistant
           .loginIfRequired()
           .then(token => {
             this.callApi();
           })
           .catch(err => {
-            console.log('Failed to retrieve tokens', err);
+            console.log('Failed to retrieve tokens when calling API', err);
           });
       }
     }
@@ -63,11 +66,11 @@ export class AppComponent implements OnInit {
           const href = window.location.origin + '?user=true';
           window.history.pushState({path: href}, '', href);
         }
-        this.ref.detectChanges();
+        this.ref.markForCheck();
 
       })
         .catch((err) => {
-          console.log('Failed to retrieve tokens', err);
+          console.log('Failed to retrieve tokens during getToken', err);
         });
     }
   }
