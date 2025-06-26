@@ -66,18 +66,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-assisted-token:build"
+            "buildTarget": "angular-assisted-token:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-assisted-token:build:production"
+              "buildTarget": "angular-assisted-token:build:production"
             }
-          }
+          },
+
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-assisted-token:build"
+            "buildTarget": "angular-assisted-token:build"
           }
         },
         "test": {
@@ -123,6 +124,5 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-assisted-token"
+    }}
 }
