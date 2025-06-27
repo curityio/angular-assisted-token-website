@@ -1,18 +1,18 @@
-@if (isLoggedIn) {
+@if (isLoggedIn()) {
   <div>
     <h2>Assisted Token</h2>
     <button (click)="getToken()">Get Token</button>
     <br>
       <br>
-        <label>Token : <b>{{userToken}}</b></label>
+        <label>Token : <b>{{userToken()}}</b></label>
         <br>
           <br>
             <br>
               <button (click)="callApi()">Call Api</button>
               <br>
                 <br>
-                  @if (apiResponse) {
-                    <label>Response : {{apiResponse}}</label>
+                  @if (apiResponse()) {
+                    <label>Response : {{apiResponse()}}</label>
                   }
                 </div>
               } @else {
